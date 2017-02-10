@@ -18,9 +18,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{url('/add_task')}}">Add New Task</a></li>
+                        <li><a href="{{route('add_task.create')}}">Add New Task</a></li>
                         <li><a href="#">Edit/Delete Task</a></li>
-                        <li><a href="#">Update Task</a></li>
+                        <li><a href="{{route('add_task.index')}}">All Task</a></li>
 
                     </ul>
                 </li>
