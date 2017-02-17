@@ -19,8 +19,12 @@
                     <td>{{$task->name}}</td>
                     <td>{{$task->status}}</td>
                     <td>{{$task->created_at->diffForHumans()}}</td>
-                    <td><a href="#" class="btn btn-primary fa fa-edit"></a></td>
-                    <td><a href="#" class="btn btn-danger fa fa-trash"></a></td>
+                    <td><a href="{{route('add_task.edit',$task->id)}}" class="btn btn-primary fa fa-edit"></a></td>
+                       {!! Form::open(array("route"=>["add_task.destroy",$task->id],'method'=>'delete')) !!}
+                    <td><button  type="submit" class="btn btn-danger" ><span class="fa fa-trash-o fa-2x"></span></button></td>
+
+                    {!! Form::close() !!}
+
 
                 </tr>
                 @endforeach

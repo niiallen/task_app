@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskRequest;
 use App\Task;
 use Illuminate\Http\Request;
+use Session;
 
 class TaskController extends Controller
 {
@@ -17,8 +18,16 @@ class TaskController extends Controller
     {
         //Getting all tasks
         $tasks = Task::latest()->orderBy('created_at','desc')->get();
+        if($tasks->count()<1) {
+            Session::flash('warning', 'No tasks found');
+            return view('all', compact('tasks'));
+        }
+        else{
+//            Session::flash('info', $tasks->count().' task(s) found');
+            return view('all',compact('tasks'));
 
-        return view('all',compact('tasks'));
+        }
+
 
     }
 
@@ -30,6 +39,8 @@ class TaskController extends Controller
     public function create()
     {
         //
+        Session::flash('info',' Add a task');
+
         return view('add');
     }
 
@@ -48,6 +59,8 @@ class TaskController extends Controller
 //        $store->save();
 
         Task::create($request->all());
+        Session::flash('success',' new task created');
+
         return redirect(route('add_task.index'));
     }
 
@@ -70,7 +83,12 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        //grab a particular record
+        $task=Task::find($id);
+       // dd($task);
+        Session::flash('info', ' task ready for update');
+
+        return view('edit',compact('task'));
     }
 
     /**
@@ -80,9 +98,16 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskRequest $request, $id)
     {
         //
+        Task::find($id)->update($request->all());
+        Session::flash('info', ' task updated');
+
+        return redirect(route('add_task.index'));
+//        $updatedTask = Task::find($id);
+//        dd($updatedTask);
+//        $updatedTask->update($request->all());
     }
 
     /**
@@ -94,5 +119,9 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+        Task::destroy($id);
+        Session::flash('danger',' task deleted');
+
+        return redirect(route('add_task.index'));
     }
 }
