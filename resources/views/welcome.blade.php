@@ -2,7 +2,10 @@
 <!--Content to serve-->
 @section('killer')
 
-    <p>Welcome to our task app!!</p>
+ <h1>WELCOME TO THE TASK_APP!</h1>
+
+   
+    <img src= "/img/tym.jpg" />
 
 
 @endsection
