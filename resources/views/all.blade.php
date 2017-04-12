@@ -13,7 +13,7 @@
                 <th>Delete</th>
                </thead>
                <tbody>
-            @if(!empty($tasks))
+           @if(!empty($tasks))
                 @foreach($tasks as $task)
                 <tr>
                     <td>{{$task->name}}</td>
